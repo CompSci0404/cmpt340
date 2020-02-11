@@ -6,7 +6,6 @@ package assignment2
 
 object FaroShuffle {
 
-
   def shuffle[A](L1:List[A], L2:List[A]): List[A] = {
     var newList = List[A]()
 
@@ -33,7 +32,6 @@ object FaroShuffle {
 
     }
 
-
     def loop(n:Int): Int = {
       getListItem(L1, n)
       getListItem(L2, n)
@@ -48,12 +46,47 @@ object FaroShuffle {
     newList.reverse // return the final list once we are finished with it!
   }
 
+
+  def split[A](ls:List[A], n:Int): List[List[A]] = {
+    var newList: List[List[A]] = List(List(), List())
+
+
+    /*
+    def checkN(n:A) = Option[Int] = {
+        val num: Option[Int] = try{ n.toInt }
+
+    }
+    */
+
+    def loop(k:Int): Int = {
+
+      if(k <= n){
+        newList(0) ::= ls(k)
+
+      } else {
+
+        newList(1) ::= ls(k)
+
+      }
+
+      if( k == ls.length - 1)1
+      else loop(k+1)
+    }
+
+    loop(0)
+
+    newList
+  }
+
   def main(args:Array[String]): Unit = {
 
     val num1: List[String] = List("h1", "h2", "h3")
-    val num2: List[String] = List("c1", "c2", "c3", "c4", "c5", "c6")
+    val num2: List[String] = List("c1", "c2", "c3", "c4", "c5", "c6",
+                                  "c7", "c8", "c9", "c10","cJ", "CQ")
 
     println(shuffle(num1, num2))
+
+    println(split(num2, 6))
 
   }
 

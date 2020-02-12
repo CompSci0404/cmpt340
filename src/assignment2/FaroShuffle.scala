@@ -48,32 +48,34 @@ object FaroShuffle {
 
 
   def split[A](ls:List[A], n:Int): List[List[A]] = {
-    var newList: List[List[A]] = List(List(), List())
+    //var newList: List[List[A]] = List(List(), List())
 
+    var list1  = List[A]()
+    var list2 = List[A]()
 
-    /*
-    def checkN(n:A) = Option[Int] = {
-        val num: Option[Int] = try{ n.toInt }
-
-    }
-    */
 
     def loop(k:Int): Int = {
 
-      if(k <= n){
-        newList(0) ::= ls(k)
+      if(k < n){
 
-      } else {
+        list1 ::= ls(k)
 
-        newList(1) ::= ls(k)
+      } else if (k <= ls.length-1){
 
+        list2 ::= ls(k)
       }
+
 
       if( k == ls.length - 1)1
       else loop(k+1)
+
     }
 
     loop(0)
+
+    val newList: List[List[A]] = List(list1.reverse,list2.reverse)
+
+    println("content of list1: " + list1 + " content of list2: " + list2 + "THUG hours: " + newList)
 
     newList
   }

@@ -78,28 +78,69 @@ object FaroShuffle {
     newList
   }
 
+
+  def checkDeck[A](ls:List[A], n:Int): Either[String, Int] = {
+
+    if(ls.length % 2 != 0 ) Left("cannot have a deck that is not even!")
+    else Right(n)
+  }
+
+
   // already have plug in two lists  in order back and forth.
   def outShuffle[A](ls:List[A], n:Int):  List[A] = {
-    val cutDeck = split(ls, n)
+
+      var cutDeck: List[List[A]] = List()
+
+    checkDeck(ls,n) match {
+      case Left(s) => println(s)
+      case Right(n) => cutDeck = split(ls,n)
+    }
+
+    println("yeet")
+
     shuffle(cutDeck(0), cutDeck(1))
   }
 
   // plug in my lists with reversal of my lists.
   def inShuffle [A](ls:List[A], n:Int): List[A] = {
 
-    val cutDeck = split(ls,n)
+    var cutDeck: List[List[A]] = List()
+
+    checkDeck(ls,n) match {
+      case Left(s) => println(s)
+      case Right(n) => cutDeck = split(ls,n)
+    }
     shuffle(cutDeck(1), cutDeck(0))
 
   }
 
 
+  def nShuffle[A](f:(List[A], Int) => List[A], ls:List[A], n:Int): List[A] = {
+    //var newList: List[A] = List()
+    f(ls,n)
+    def loop (k:Int): Int ={
+
+       // newList = f(ls, n)
+
+        if(k == n)1
+        else loop(k+1)
+    }
+
+    loop(0)
+
+   // newList
+    Nil
+  }
+
   def main(args:Array[String]): Unit = {
-    
+
     val num2: List[String] = List("c1", "c2", "c3", "c4", "c5", "c6",
                                   "c7", "c8", "c9", "c10","cJ", "CQ")
 
-    println("out shuffle: " + outShuffle(num2, 6))
-    println("in shuffle: " + inShuffle(num2, 6))
+    //println("out shuffle: " + outShuffle(num2, 6))
+   // println("in shuffle: " + inShuffle(num2, 6))
+
+    println(nShuffle(outShuffle, num2,6))
 
   }
 

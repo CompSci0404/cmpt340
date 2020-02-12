@@ -58,11 +58,11 @@ object FaroShuffle {
 
       if(k < n){
 
-        list1 ::= ls(k)
+        list1 :+= ls(k)
 
       } else if (k <= ls.length-1){
 
-        list2 ::= ls(k)
+        list2 :+= ls(k)
       }
 
 
@@ -73,22 +73,33 @@ object FaroShuffle {
 
     loop(0)
 
-    val newList: List[List[A]] = List(list1.reverse,list2.reverse)
-
-    println("content of list1: " + list1 + " content of list2: " + list2 + "THUG hours: " + newList)
+    val newList: List[List[A]] = List(list1,list2)
 
     newList
   }
 
-  def main(args:Array[String]): Unit = {
+  // already have plug in two lists  in order back and forth.
+  def outShuffle[A](ls:List[A], n:Int):  List[A] = {
+    val cutDeck = split(ls, n)
+    shuffle(cutDeck(0), cutDeck(1))
+  }
 
-    val num1: List[String] = List("h1", "h2", "h3")
+  // plug in my lists with reversal of my lists.
+  def inShuffle [A](ls:List[A], n:Int): List[A] = {
+
+    val cutDeck = split(ls,n)
+    shuffle(cutDeck(1), cutDeck(0))
+
+  }
+
+
+  def main(args:Array[String]): Unit = {
+    
     val num2: List[String] = List("c1", "c2", "c3", "c4", "c5", "c6",
                                   "c7", "c8", "c9", "c10","cJ", "CQ")
 
-    println(shuffle(num1, num2))
-
-    println(split(num2, 6))
+    println("out shuffle: " + outShuffle(num2, 6))
+    println("in shuffle: " + inShuffle(num2, 6))
 
   }
 

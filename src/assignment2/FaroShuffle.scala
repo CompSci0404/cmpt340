@@ -96,8 +96,6 @@ object FaroShuffle {
       case Right(n) => cutDeck = split(ls,n)
     }
 
-    println("yeet")
-
     shuffle(cutDeck(0), cutDeck(1))
   }
 
@@ -116,11 +114,13 @@ object FaroShuffle {
 
 
   def nShuffle[A](f:(List[A], Int) => List[A], ls:List[A], n:Int): List[A] = {
-    //var newList: List[A] = List()
-    f(ls,n)
+    var newList: List[A] = ls
+
     def loop (k:Int): Int ={
 
-       // newList = f(ls, n)
+      newList = f(newList, newList.length/2)
+
+      //println("This is the new list: " + newList)
 
         if(k == n)1
         else loop(k+1)
@@ -128,8 +128,7 @@ object FaroShuffle {
 
     loop(0)
 
-   // newList
-    Nil
+    newList
   }
 
   def main(args:Array[String]): Unit = {
@@ -138,9 +137,11 @@ object FaroShuffle {
                                   "c7", "c8", "c9", "c10","cJ", "CQ")
 
     //println("out shuffle: " + outShuffle(num2, 6))
-   // println("in shuffle: " + inShuffle(num2, 6))
+    //println("in shuffle: " + inShuffle(num2, 6))
 
-    println(nShuffle(outShuffle, num2,6))
+    println(nShuffle(outShuffle[String], num2,100))
+
+    println(nShuffle(inShuffle[String], num2, 100))
 
   }
 

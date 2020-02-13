@@ -131,10 +131,40 @@ object FaroShuffle {
     newList
   }
 
+  def howManyShuffles[A](f:(List[A], Int)=>List[A], ls:List[A], ls2:List[A]): Int ={
+
+    var lsShuf: List[A] = ls
+    val done: Boolean = true
+
+
+    def loop(count: Int): Int ={
+
+      println(count + " yeet")
+
+      lsShuf = f(lsShuf, lsShuf.length / 2)
+
+      if(lsShuf == ls2) count
+      else loop(count + 1)
+
+
+    }
+
+    val timesCounted = loop(0)
+
+    timesCounted
+  }
+
   def main(args:Array[String]): Unit = {
 
     val num2: List[String] = List("c1", "c2", "c3", "c4", "c5", "c6",
                                   "c7", "c8", "c9", "c10","cJ", "CQ")
+
+    val deck: List[Int] = List(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,
+                                32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52)
+
+    val savedDeck: List[Int] = List(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,
+      32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52)
+
 
     //println("out shuffle: " + outShuffle(num2, 6))
     //println("in shuffle: " + inShuffle(num2, 6))
@@ -142,6 +172,9 @@ object FaroShuffle {
     println(nShuffle(outShuffle[String], num2,100))
 
     println(nShuffle(inShuffle[String], num2, 100))
+
+    println(howManyShuffles(outShuffle[Int],deck, savedDeck))
+
 
   }
 
